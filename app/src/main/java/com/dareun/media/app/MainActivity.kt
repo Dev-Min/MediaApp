@@ -1,11 +1,11 @@
 package com.dareun.media.app
 
+import android.app.Activity
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
 import android.provider.MediaStore
 import android.util.Log
 import com.bumptech.glide.Glide
@@ -17,6 +17,7 @@ import java.io.FileOutputStream
 class MainActivity : AppCompatActivity() {
     companion object {
         const val TAG = "Image Tester"
+        const val READ_REQUEST_CODE = 42
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +78,26 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
+        }
+
+        saf_button.setOnClickListener {
+            // SAF Selector
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "image/*"
+            }
+            startActivityForResult(intent, READ_REQUEST_CODE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.data?.also { uri ->
+                Log.e(TAG, "Selected Image URI : $uri")
+                Glide.with(this).load(uri).into(image_view)
+            }
         }
     }
 }

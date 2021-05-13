@@ -10,18 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <Button
-            android:id="@+id/image_pic_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="Select Picture"/>
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/image_pic_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Select Picture"/>
+
+            <Button
+                android:id="@+id/saf_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="SAF"/>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"/>
+            android:layout_weight="8"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
